@@ -11,6 +11,12 @@ namespace LibraryApp.Services
         private readonly IDeliveryService _deliveryService;
         private readonly IPurchaseService _purchaseService;
 
+        public LibraryService(IBookService _bookService, IDeliveryService _deliveryService, IPurchaseService _purchaseService)
+        {
+            bookService = _bookService;
+            deliveryService = _deliveryService;
+            purchaseService = _purchaseService;
+        }
 
         public void DoPurchaseCalculation(Book book)
         {

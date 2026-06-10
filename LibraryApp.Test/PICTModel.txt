@@ -1,0 +1,12 @@
+BookPrice: 10, 15, 30
+NumOfPurchasesInTheLastMonth: 4, 5, 13
+Penalty: true, false
+ActivityFrequency: High, Regular, Low
+Discount: 10, 20, 25, 15, 10
+
+IF [ActivityFrequency] = High THEN [Discount] = 10;
+IF [ActivityFrequency] = High AND [NumOfPurchasesInTheLastMonth] = 5 AND [BookPrice] = 15 AND [Penalty] = TRUE THEN [Discount] = 20;
+IF [ActivityFrequency] = High AND [NumOfPurchasesInTheLastMonth] = 4 OR [BookPrice] = 10 AND [Penalty] = FALSE THEN [Discount] = 25;
+
+IF [ActivityFrequency] = Regular AND [NumOfPurchasesInTheLastMonth] = 13 OR [BookPrice] = 30 THEN [Discount] = 15;
+IF [ActivityFrequency] = Regular THEN [Discount] = 10;
