@@ -1,11 +1,20 @@
-BookPrice	NumOfPurchasesInTheLastMonth	Penalty	ActivityFrequency
-10	4	true	High
-30	4	false	Regular
-30	5	true	Low
-15	5	false	High
-10	13	true	Regular
-15	13	false	Low
-15	4	true	Regular
-10	4	false	Low
-10	5	true	Regular
-30	13	true	High
+BookPrice	NumOfPurchasesInTheLastMonth	Penalty	ActivityFrequency	Discount
+10	5	true	Low	10
+15	5	false	High	10
+15	13	false	High	10
+30	5	false	Low	15
+15	13	true	Low	10
+15	4	true	Low	15
+10	4	false	Low	25
+15	5	true	Low	20
+15	5	true	Low	25
+10	13	true	Low	25
+10	4	true	Regular	10
+15	4	false	Regular	10
+15	13	false	Low	20
+30	4	true	Low	15
+10	4	true	Low	20
+10	13	true	High	10
+30	13	false	Low	15
+10	5	true	Regular	10
+10	13	true	Low	15

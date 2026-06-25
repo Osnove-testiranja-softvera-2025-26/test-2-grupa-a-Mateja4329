@@ -1,8 +1,12 @@
-﻿using System;
+﻿using LibraryApp.Exceptions;
+using LibraryApp.Models;
+using LibraryApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace LibraryApp.Fakes
 {
@@ -13,7 +17,7 @@ namespace LibraryApp.Fakes
 
         public BookRequestInfo GetBookRequestsInTheLastMonthInfo(Guid bookId)
         {
-            if(isException)
+            if(isException != null)
             {
                 throw new NoRequestsForCalculationException("[DoPurchaseCalculation] Book wasn't requested in the last month.");
             }

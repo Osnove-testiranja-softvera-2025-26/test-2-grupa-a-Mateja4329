@@ -11,7 +11,9 @@ namespace LibraryApp.Test
 {
     public static class PICTParser
     {
-        private static readonly string PICTParserPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PICTResult.txt");
+        // private static readonly string PICTParserPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PICTResult.txt");
+
+        private static readonly string PICTParserPath = "C:\\Users\\makig\\Source\\Repos\\test-2-grupa-a-Mateja4329\\LibraryApp.Test\\PICTResult.txt";
 
         public static IEnumerable<TestCaseData> GetTestCase()
         {
@@ -30,8 +32,9 @@ namespace LibraryApp.Test
                     int numOfPurchasesInTheLastMonth = int.Parse(parts[1]);
                     bool penalty = bool.Parse(parts[2]);
                     ActivityFrequency activityFrequency = (ActivityFrequency)Enum.Parse(typeof(ActivityFrequency), parts[3]);
+                    int discount = int.Parse(parts[4]);
 
-                    yield return new TestCaseData(bookPrice, numOfPurchasesInTheLastMonth, penalty, activityFrequency);
+                    yield return new TestCaseData(bookPrice, numOfPurchasesInTheLastMonth, penalty, activityFrequency, discount);
                 }
             }
         }

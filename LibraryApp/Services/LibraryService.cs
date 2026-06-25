@@ -1,15 +1,13 @@
-﻿
-
-using LibraryApp.Exceptions;
+﻿using LibraryApp.Exceptions;
 using LibraryApp.Models;
 
 namespace LibraryApp.Services
 {
     public class LibraryService
     {
-        private readonly IBookService _bookService;
-        private readonly IDeliveryService _deliveryService;
-        private readonly IPurchaseService _purchaseService;
+        private readonly IBookService bookService;
+        private readonly IDeliveryService deliveryService;
+        private readonly IPurchaseService purchaseService;
 
         public LibraryService(IBookService _bookService, IDeliveryService _deliveryService, IPurchaseService _purchaseService)
         {
@@ -20,8 +18,7 @@ namespace LibraryApp.Services
 
         public void DoPurchaseCalculation(Book book)
         {
-
-            BookRequestInfo requestsInfo = _bookService.GetBookRequestsInTheLastMonthInfo(book.Id);
+            BookRequestInfo requestsInfo = bookService.GetBookRequestsInTheLastMonthInfo(book.Id);
             int numOftotalRequests = requestsInfo.NumberOfTotalRequests;
 
             if (numOftotalRequests == 0)
@@ -30,7 +27,7 @@ namespace LibraryApp.Services
             }
             double percentOfUnprocessedRequests = requestsInfo.PercentOfUnprocessedRequests;
 
-            DeliveryType deliveryType = _deliveryService.GetDeliveryTypeForBook(book.Id);
+            DeliveryType deliveryType = deliveryService.GetDeliveryTypeForBook(book.Id);
             Purchase purchase = new Purchase(book.Id);         
 
             if (deliveryType.Equals(DeliveryType.Oversea) && percentOfUnprocessedRequests > 80)
@@ -60,7 +57,7 @@ namespace LibraryApp.Services
                 purchase.NumberOfCopiesToBePurchased = 10;
             }
 
-            _purchaseService.CreatePurchase(purchase);
+            purchaseService.CreatePurchase(purchase);
         }
 
 

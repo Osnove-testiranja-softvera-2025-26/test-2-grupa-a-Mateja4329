@@ -1,7 +1,11 @@
-﻿using NUnit.Framework;
+﻿using LibraryApp.Exceptions;
+using LibraryApp.Fakes;
 using LibraryApp.Models;
 using LibraryApp.Services;
-using LibraryApp;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LibraryApp.Test
 {
@@ -9,7 +13,7 @@ namespace LibraryApp.Test
     public class LibraryServiceTest
     {
         private FakeBookService fakeBookService;
-        private FakeFakeDeliveryService fakeDeliveryService;
+        private FakeDeliveryService fakeDeliveryService;
         private FakePurchaseService fakePurchaseService;
 
         private LibraryService libraryService;
@@ -35,27 +39,27 @@ namespace LibraryApp.Test
         // ------------------------------------------------------------------------------------------------------------------
         // Invalid:
         // Not DeliveryType, negative number, NAN.
-        [test]
+        [Test]
         public void DoPurchaseCalculation_ShouldRequestDelivery_Success()
         {
             // Arrange
             fakeBookService.bookRequest = new BookRequestInfo();
-            fakeBookService.bookRequest.percentOfUnprocessedRequests = 81;
+            fakeBookService.bookRequest.PercentOfUnprocessedRequests = 81;
             fakeDeliveryService.deliveryType = new DeliveryType();
-            fakeDeliveryService.deliveryType.Oversea;
+            fakeDeliveryService.deliveryType = DeliveryType.Oversea;
 
             Book book = new Book();
             book.NumberOfCopies = 10;
 
             // Act and Assert
-            Assert.That(libraryService.DoPurchaseCalculation(book), Is.EqualTo(fakePurchaseService.purchaseLog[0]));
+            Assert.That(book.NumberOfCopies, Is.EqualTo(fakePurchaseService.purchaseLog[0].NumberOfCopiesToBePurchased));
         }
 
-        [test]
+        [Test]
         public void DoPurchaseCalculation_ShouldRequestDelivery_Exception()
         {
             // Arrange
-            fakeBookService.isException = true;
+            fakeBookService.isException = new NoRequestsForCalculationException();
             Book book = new Book();
 
             // Act
@@ -75,10 +79,12 @@ namespace LibraryApp.Test
         // Invalid:
         // Not ActivityFrequency, negative numbers, NAN
         [TestCaseSource(typeof(PICTParser), nameof(PICTParser.GetTestCase))]
-        public void GetMemberDiscount_PictParser(double bookPrice, int numOfPurchasesInTheLastMonth, bool penalty, ActivityFrequency activityFrequency)
+        public void GetMemberDiscount_PictParser(double bookPrice, int numOfPurchasesInTheLastMonth, bool penalty, ActivityFrequency activityFrequency, int expected_result)
         {
             // Act and Assert
-            Assert.DoesNotThrow((TestDelegate)(() => libraryService.GetMemberDiscount(bookPrice, numOfPurchasesInTheLastMonth, penalty, activityFrequency)));
+            int result = libraryService.GetMemberDiscount(bookPrice, numOfPurchasesInTheLastMonth, penalty, activityFrequency);
+
+            Assert.That(expected_result, Is.EqualTo(result));
         }
     }
 }

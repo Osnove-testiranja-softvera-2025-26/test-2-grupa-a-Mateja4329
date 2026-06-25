@@ -113,10 +113,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakeBookService.cs" />
-    <Compile Include="FakeDeliveryService.cs" />
-    <Compile Include="FakeFakeDeliveryService.cs" />
-    <Compile Include="FakePurchaseService.cs" />
     <Compile Include="LibraryServiceTest.cs" />
     <Compile Include="PICTParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

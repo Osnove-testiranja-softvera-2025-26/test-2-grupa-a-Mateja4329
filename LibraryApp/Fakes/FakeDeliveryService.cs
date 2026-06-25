@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryApp.Models;
+using LibraryApp.Services;
+using LibraryApp.Exceptions;
+using LibraryApp;
 
 namespace LibraryApp.Fakes
 {
@@ -13,7 +17,7 @@ namespace LibraryApp.Fakes
 
         public DeliveryType GetDeliveryTypeForBook(Guid bookId)
         {
-            if (isException)
+            if (isException != null)
             {
                 throw new NoRequestsForCalculationException("[DoPurchaseCalculation] Book wasn't requested in the last month.");
             }
